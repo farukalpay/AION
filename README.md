@@ -2,7 +2,7 @@
 ![Platform](https://img.shields.io/badge/platform-macOS%20(Apple%20Silicon)-lightgrey.svg)
 ![Status](https://img.shields.io/badge/status-verified-green.svg)
 
-**Status**: Verified (4.0x Speedup vs Baseline)
+**Status**: Verified (7.8x Speedup vs Baseline)
 
 ## Abstract
 Project AION is a systems-level research initiative investigating the "Abstraction Tax" of managed runtimes and the theoretical limits of specific quantization strategies on general-purpose CPU architectures. We present a bare-metal C11 inference engine for the Llama-2 architecture, fully optimized for the Apple Silicon (M-Series) micro-architecture. By replacing the vendor-optimized Scalar Baseline with a hand-tuned **Parallel Optimized Architecture** and introducing **4-bit (Int4) Quantization**, we aim to analyze the trade-offs between Memory Bandwidth and Arithmetic Intensity.
@@ -17,19 +17,26 @@ Project AION is a systems-level research initiative investigating the "Abstracti
 ```
 .
 ├── src/
-│   ├── kernel_amx.c        # Hybrid AMX/NEON Kernel (The Engine)
-│   ├── reference_oracle.py # Numerical Ground Truth
-│   └── generate_figure.py  # Reproduction Plotting
-├── paper.tex               # LaTeX Research Manuscript (arXiv ready)
-├── quantize.c              # W4A8 Quantization Tool
-├── benchmarks.csv          # Empirical Logs
-└── Makefile                # Build System
+│   ├── kernel_amx.c            # Hybrid AMX/NEON Kernel (The Engine)
+│   ├── kernel_simd.c           # CPU-Only NEON Kernel (Baseline/Optimized)
+│   ├── reference_oracle.py     # Numerical Ground Truth (F32)
+│   └── generate_figure.py      # Reproduction Plotting Script
+├── paper.tex                   # LaTeX Research Manuscript
+├── benchmark_python_int4.py    # Python Int4 Emulation Benchmark
+├── quantize.c                  # C11 Quantization Tool (W4A8)
+├── quantize.py                 # Python Quantization Reference
+├── benchmarks.csv              # Empirical Performance Logs
+├── Makefile                    # Build System
+├── LICENSE                     # MIT License
+├── README.md                   # Project Documentation
+├── scaling_analysis.png        # Generated Figure: Scaling Wall
+└── throughput_comparison.png   # Generated Figure: Throughput Bar Chart
 ```
 
 ## Key Empirical Findings
 
 ### 1. Throughput Quantification
-We demonstrate that a hand-optimized C11 kernel utilizing Register Tiling and explicit Memory Ordering can outperform vendor-optimized BLAS libraries (Apple Accelerate) by **4.5x**.
+We demonstrate that a hand-optimized C11 kernel utilizing Register Tiling and explicit Memory Ordering can outperform vendor-optimized BLAS libraries (Apple Accelerate) by **4.0x**.
 
 ![Throughput Comparison](throughput_comparison.png)
 *Figure 1: Comparative throughput analysis showing the implementation hierarchy.*

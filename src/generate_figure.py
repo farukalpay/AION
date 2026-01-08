@@ -161,9 +161,9 @@ def generate_scaling_figure():
     
     # Annotations - Memory Wall
     plt.annotate('Diminishing Returns\n(Memory Wall)', 
-                 xy=(4, 17.93), xytext=(2.5, 17),
+                 xy=(4, 17.93), xytext=(3.0, 15.0),
                  arrowprops=dict(facecolor='#E74C3C', shrink=0.05, width=1.5),
-                 color='#C0392B', fontweight='bold')
+                 color='#C0392B', fontweight='bold', ha='center')
                  
     # Annotations - Compute Wall
     plt.annotate('Linear Scaling\n(Compute Bound)', 
