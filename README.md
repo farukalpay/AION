@@ -31,6 +31,10 @@ Project AION is a systems-level research initiative investigating the "Abstracti
 ### 1. Throughput Quantification
 We demonstrate that a hand-optimized C11 kernel utilizing Register Tiling and explicit Memory Ordering can outperform vendor-optimized BLAS libraries (Apple Accelerate) by **4.5x**.
 
+![Throughput Comparison](throughput_comparison.png)
+*Figure 1: Comparative throughput analysis showing the implementation hierarchy.*
+
+
 | Implementation | Description | Throughput (tok/s) | Relative Speedup |
 |----------------|-------------|--------------------|---------|
 | **Python Oracle** | NumPy / Accelerate (BLAS) | 4.42 | 1.00x |
@@ -56,6 +60,10 @@ A central contribution of this work is the empirical verification of the "Conser
 We emphasize two critical system boundaries:
 - **The Compute Wall**: Despite reducing memory traffic by 8x, our Int4 kernels operate at a lower throughput than F32. This confirms that the cost of `uint8` $\to$ `float32` decompression saturates the CPU's vector pipeline before memory bandwidth can become the limiting factor.
 - **Arithmetic Intensity**: The naive Thread-Level Parallelism approach fails due to cache thrashing. Our "Register Tiling" strategy (computing 4x4 blocks in L1 cache) was necessary to achieve the theoretical peak performance of the M4 Pro cores.
+
+![Scaling Analysis](scaling_analysis.png)
+*Figure 2: Scaling efficacy and the emergence of the Compute Wall.*
+
 
 ## Methodology
 
