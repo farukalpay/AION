@@ -21,7 +21,6 @@ Project AION is a systems-level research initiative investigating the "Abstracti
 │   ├── kernel_simd.c           # CPU-Only NEON Kernel (Baseline/Optimized)
 │   ├── reference_oracle.py     # Numerical Ground Truth (F32)
 │   └── generate_figure.py      # Reproduction Plotting Script
-├── paper.tex                   # LaTeX Research Manuscript
 ├── benchmark_python_int4.py    # Python Int4 Emulation Benchmark
 ├── quantize.c                  # C11 Quantization Tool (W4A8)
 ├── quantize.py                 # Python Quantization Reference
