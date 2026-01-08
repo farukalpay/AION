@@ -54,6 +54,7 @@ A central contribution of this work is the empirical verification of the "Conser
 
 | Implementation | Description | Throughput (tok/s) | Slowdown vs F32 |
 |----------------|-------------|--------------------|-----------------|
+| **Python Int4 Oracle** | 1 (P-Core) | $\approx$ 0.80 | **5.5x** |
 | C11 Int4 (Scalar) | 1 (P-Core) | 0.81 | **4.7x** |
 | C11 Int4 (NEON) | 1 (P-Core) | 3.19 | **4.0x** |
 | C11 Int4 (NEON) | 4 (P-Core) | 12.40 | **1.45x** |
@@ -142,6 +143,21 @@ Then run the various kernels:
 
 # 3. W4A8 NEON (Activation Quantization)
 ./kernel_simd tl-chat-int4.bin 100 4 w4a8
+```
+
+### Step 6: Run AMX Architectures (Experimental)
+We provide two AMX implementations: the standard Accelerate-based version and the experimental Bare Metal version.
+
+```bash
+make kernel_amx
+
+# 1. Accelerate Framework (Safe, Portable)
+./kernel_amx tl-chat.bin 100 1
+# Expected Output: ~34.5 tok/s (Pipelined)
+
+# 2. Bare Metal Assembly (Experimental, M1/M2/M3 Specific)
+./kernel_amx tl-chat.bin 100 1 --asm
+# Expected Output: ~34.5+ tok/s (Low Latency)
 ```
 
 ## Citation
