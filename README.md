@@ -7,6 +7,8 @@
 ## Abstract
 Project AION is a systems-level research initiative investigating the "Abstraction Tax" of managed runtimes and the theoretical limits of specific quantization strategies on general-purpose CPU architectures. We present a bare-metal C11 inference engine for the Llama-2 architecture, fully optimized for the Apple Silicon (M-Series) micro-architecture. By replacing the vendor-optimized Scalar Baseline with a hand-tuned **Parallel Optimized Architecture** and introducing **4-bit (Int4) Quantization**, we aim to analyze the trade-offs between Memory Bandwidth and Arithmetic Intensity.
 
+> **[Read the Paper (PDF)](paper/paper.pdf)** | **[LaTeX Source](paper/paper.tex)**
+
 ## Technical Highlights
 - **Zero-Copy Architecture**: Bypasses the OS page cache overhead for model weights using `mmap` with `MADV_SEQUENTIAL`.
 - **Lock-Free Synchronization**: Replaces $\approx 10\mu s$ POSIX barriers with sub-microsecond C11 Atomic Spin-Waits (`memory_order_acquire`/`release`).
@@ -16,6 +18,9 @@ Project AION is a systems-level research initiative investigating the "Abstracti
 ## Repository Structure
 ```
 .
+├── paper/
+│   ├── paper.pdf               # Full Academic Paper (PDF)
+│   └── paper.tex               # LaTeX Source
 ├── src/
 │   ├── kernel_amx.c            # Hybrid AMX/NEON Kernel (The Engine)
 │   ├── kernel_simd.c           # CPU-Only NEON Kernel (Baseline/Optimized)
@@ -161,15 +166,7 @@ make kernel_amx
 
 ## Citation
 If you find this work useful, please cite our arXiv paper:
-
-```bibtex
-@article{alakkad2026conservation,
-  title={The Conservation of Complexity: The W4A8 Paradox and Compute Wall on Apple Silicon},
-  author={Alakkad, Hamdi and Alpay, Faruk},
-  journal={arXiv preprint arXiv:2601.XXXXX},
-  year={2026}
-}
-```
+> Alakkad, H., & Alpay, F. (2026). *AION: High-Performance Bare-Metal Inference* [Computer software]. GitHub. https://github.com/farukalpay/AION
 
 ## Troubleshooting
 
